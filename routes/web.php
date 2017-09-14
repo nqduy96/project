@@ -21,6 +21,7 @@ Route::get('/createUser', function(){
 
 Route::post('/createUser/submit', 'UserController@register');
 
+
 //  Set public Picture
 Route::get('/userPic/{filename}', function ($filename)
 {
@@ -60,6 +61,9 @@ Route::delete('/home/profile/skill/delete','SkillsController@delete');
 Route::post('/home/profile/skill/insert','SkillsController@insert');
 Route::post('/home/profile/skill/edit','SkillsController@edit');
 
+Route::get('/home/profile/password','UserController@password')->name('profile.password');
+Route::post('/home/profile/password/edit', 'UserController@editPass' )->name('pass.edit');
+
 Route::get('/home/cv/{idUser}','CVController@show')->name('home.cv');
 
 //  Company
@@ -70,3 +74,11 @@ Route::post('/home/profile/postjob/post','ProfileController@postJob')->name('pos
 // Xem bai viet
 
 Route::get('/home/jobs/{idJob}','JobsController@show')->name('home.job');
+
+
+// Apply job
+
+Route::post('/home/jobs/apply','JobsController@apply')->name('jobs.apply');
+
+// View Applications (company)
+Route::get('/home/application','ApplicationController@show')->name('home.application');

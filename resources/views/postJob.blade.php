@@ -74,7 +74,7 @@
                         },
                         success: function(data){
                             if(!data.error)
-                                alert("asd");
+                                alert("Post Success");
                         }
                     })
                 });

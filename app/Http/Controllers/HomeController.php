@@ -24,7 +24,7 @@ class HomeController extends Controller
             if(count($checkToken) == 1){
                 $idUser = $json->idUser;
                 $information = DB::table('information')->where('iduser',$idUser)->first();
-                $jobs = DB::table('jobs')->join('companies', 'jobs.id_company', '=' , 'companies.id_company')
+                $jobs = DB::table('jobs')->join('companies', 'jobs.id_user', '=' , 'companies.id_user')
                                         ->select('jobs.*','companies.company_logo')->get();
                                         
                 return View('homeuser',[ 'idUser' => $idUser,

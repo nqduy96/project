@@ -17,21 +17,23 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
     <!-- End Bootstrap -->
 
     <!-- jQuery Validation -->
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script> 
     <!-- End jQuery Validation -->
     <script type="text/javascript" src="{{ asset('js/bootstrap-datepicker.js') }}" charset="UTF-8"></script>
     
+
     <style>
         #appear_form{width:60%;height:auto;background:#e6e6e6;border-radius:8px;box-shadow:0 0 40px -10px #000;margin:calc(50vh - 220px) auto;padding:20px 30px;max-width:calc(100vw - 40px);box-sizing:border-box;font-family:'Montserrat',sans-serif;display:block;margin:auto;position:absolute;z-index:11;}
         .error{color:red}
+        .table.no-border tr td, .table.no-border tr th {border-width: 0;}
     </style>
     
    </head>
@@ -40,7 +42,6 @@
     <div id="wrapper">
         <!-- navbar top -->
         @include('layouts.layoutTop')
-
         <div class="w3-container w3-content " style="max-width:1400px;margin-top:80px">    
             <div class="w3-row">
                 <!-- Left -->
@@ -71,6 +72,13 @@
                                         <i class="fa fa-address-card-o fa-fw w3-margin-right w3-text-theme"></i>My CV
                                     </a>                                  
                                 </li>
+
+                                <li class="list-group-item w3-button w3-block w3-left-align">
+                                    <a href="{{ route('profile.password') }}" class="w3-button w3-left-align">
+                                        <i class="fa fa-expeditedssl fa-fw w3-margin-right w3-text-theme"></i>Change Password
+                                    </a>                                  
+                                </li> 
+
                                 <li class="list-group-item w3-button w3-block w3-left-align">
                                     <a href="{{ route('profile.skill') }}" class="w3-button w3-left-align">
                                         <i class="fa fa-book fa-fw w3-margin-right w3-text-theme"></i>Skills

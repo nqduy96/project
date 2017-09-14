@@ -3,15 +3,15 @@
 @section('idUser', $idUser)
 
 @section('content')
+    <!-- Page Header -->
     <div class="row">
-        <!-- Page Header -->
         <div class="col-lg-12">
             <h1 class="page-header">Skills</h1>
         </div>
-        <!--End Page Header -->
     </div>
+    <!--End Page Header -->
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div class="panel panel-primary">
                 <button id="insert" style="margin:4px 2% 0 0" type="button" class="btn pull-right btn-success collapsed" aria-expanded="false">
                     <i class="fa fa-plus  fa-1x"></i> Insert
@@ -45,8 +45,8 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <button id="btnAction" type="button" class="btn">
-                                                <i class="fa fa-check  fa-1x"></i>&nbsp;<span id="spanAction"></span>
+                                            <button id="btnActionSkill" type="button" class="btn">
+                                                <i class="fa fa-check  fa-1x"></i>&nbsp;<span id="spanActionSkill"></span>
                                             </button>
                                         </div>
                                         <div class="col-sm-6">
@@ -62,7 +62,7 @@
                 </form>
          <!-- End Form Insert -->
 
-        <!-- Table Experiences -->
+        <!-- Table Skill -->
                 <div class="panel-heading">
                     <i class="fa fa-bell fa-fw"></i>Table Skills                       
                 </div>
@@ -127,15 +127,15 @@
 
             $("#insert").click(function(){
                 updateInput();
-                $("#spanAction").html("Insert");
-                $("#btnAction").removeClass("btn-primary");
-                $("#btnAction").addClass("btn-success");
+                $("#spanActionSkill").html("Insert");
+                $("#btnActionSkill").removeClass("btn-primary");
+                $("#btnActionSkill").addClass("btn-success");
                 $("#formInsert").modal();
             });
 
-            $("#btnAction").click(function(){
+            $("#btnActionSkill").click(function(){
                 if ($("#form").valid()) {
-                    var action = $("#spanAction").html();
+                    var action = $("#spanActionSkill").html();
                     var idSkill = (action == "Insert") ? "" : $("#idSkill").html();
                     var name = $("#input_Name").val();
                     var percent = $("#input_Percent").val();
@@ -177,9 +177,9 @@
                 var id = tmp[1];
                 if(action == "edit"){
                     updateInput();
-                    $("#spanAction").html("Update");
-                    $("#btnAction").removeClass("btn-success");
-                    $("#btnAction").addClass("btn-primary");
+                    $("#spanActionSkill").html("Update");
+                    $("#btnActionSkill").removeClass("btn-success");
+                    $("#btnActionSkill").addClass("btn-primary");
                     // Set value to Update
                     $("#idSkill").html(id);
                     var name = $("#name-"+ id).html(); $("#input_Name").val(name);

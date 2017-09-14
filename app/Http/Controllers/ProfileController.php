@@ -22,8 +22,8 @@ class ProfileController extends Controller
                 if($role == "user")
                     return View('profileUser',[ 'idUser' => $idUser , 'information' => $information ]);
                 
-                $company = DB::table('companies')->where('id_company' , $role)->first();
-                $jobs = DB::table('jobs')->where('id_company', $company->id_company)->get();
+                $company = DB::table('companies')->where('id_user' , $idUser)->first();
+                $jobs = DB::table('jobs')->where('id_user', $company->id_user)->get();
                 return View('profileCom',[ 'idUser' => $idUser, 'company' => $company ,'jobs' =>$jobs]);
             }
         }
@@ -51,10 +51,18 @@ class ProfileController extends Controller
             
             $action = $req->input('action');
             $action = explode('_', $action)[1];
-            $value = $req->input('value');
-            
-            $querry = DB::table('information')->where('iduser', $idUser)->update([ $action => $value ]);
-
+            if($action == "fullname"){
+                $value = $req->input('value');
+                $valueFirstname = explode('_', $value)[0];
+                $valueLastname = explode('_', $value)[1];
+                $querry = DB::table('information')->where('iduser', $idUser)->update([ 'firstname' => $valueFirstname ,'lastname' => $valueLastname]);
+            }
+            else{
+                $value = $req->input('value');
+                error_log($value . "_" . $action);
+                $querry = DB::table('information')->where('iduser', $idUser)->update([ $action => $value ]);
+                
+            }
             return response()->json([
                 'error' => false,
                 'message' => "Update Success !!",
@@ -73,8 +81,7 @@ class ProfileController extends Controller
             $token = session('token');
             $json = JWT::decode($token, "ANH_DUY_OK",true);
             $idUser = $json->idUser;
-            $id_company = $json->role;
-            $company = DB::table('companies')->where('id_company', $id_company)->first();
+            $company = DB::table('companies')->where('id_user', $idUser)->first();
 
             return view('postJob',[ 'company' => $company ]);
         }
@@ -86,7 +93,6 @@ class ProfileController extends Controller
             $token = session('token');
             $json = JWT::decode($token, "ANH_DUY_OK",true);
             $idUser = $json->idUser;
-            $id_company = $json->role;
             
             $title = $req->input('title');
             $location = $req->input('location');
@@ -95,7 +101,7 @@ class ProfileController extends Controller
             $howToApply = $req->input('howToApply');
 
             $query = DB::table('jobs')->insert([
-                'id_company' => $id_company , 'title' => $title, 'location' => $location, 'type' => $type, 'description' => $description, 'how_to_apply' =>$howToApply
+                'id_user' => $idUser , 'title' => $title, 'location' => $location, 'type' => $type, 'description' => $description, 'how_to_apply' =>$howToApply
             ]);
 
             return response()->json([

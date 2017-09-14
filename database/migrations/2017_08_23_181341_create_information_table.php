@@ -16,6 +16,9 @@ class CreateInformationTable extends Migration
         Schema::create('information', function (Blueprint $table) {
             $table->increments('id');
             $table->string('iduser');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->longText('introduce');  
             $table->string('phone');
             $table->string('mail');
             $table->string('skype');

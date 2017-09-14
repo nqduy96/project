@@ -54,8 +54,8 @@
                                                 <textarea class="form-control" rows="5" id="input_Content" name="content"></textarea>
                                             </div>
                                             <div class="row">
-                                                <button id="btnAction" type="button" class="btn">
-                                                    <i class="fa fa-check  fa-1x"></i>&nbsp;<span id="spanAction"></span>
+                                                <button id="btnActionEdu" class="btn" type="button">
+                                                    <i class="fa fa-check  fa-1x">&nbsp;</i><span id="spanActionEdu"></span>
                                                 </button>
                                                 <br>
                                                 <button style="margin-top:2%" type="button" class="btn btn-danger" data-dismiss="modal">
@@ -84,9 +84,9 @@
                                         <tr>
                                             <th style="width: 10%">Year</th>
                                             <th style="width: 15%">Major</th>
-                                            <th style="width: 25%">School</th>
+                                            <th style="width: 22%">School</th>
                                             <th style="width: 30%">Content</th>
-                                            <th style="width: 20%">Action</th>
+                                            <th style="width: 23%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -146,15 +146,15 @@
 
             $("#insert").click(function(){
                 updateInput();
-                $("#spanAction").html("Insert");
-                $("#btnAction").removeClass("btn-primary");
-                $("#btnAction").addClass("btn-success");
+                $("#spanActionEdu").html("Insert");
+                $("#btnActionEdu").removeClass("btn-primary");
+                $("#btnActionEdu").addClass("btn-success");
                 $("#formInsert").modal();
             });
 
-            $("#btnAction").click(function(){
+            $("#btnActionEdu").click(function(){
                 if ($("#form").valid()) {
-                    var action = $("#spanAction").html();
+                    var action = $("#spanActionEdu").html();
                     var idEdu = (action == "Insert") ? "" : $("#idEdu").html();
                     var major = $("#input_Major").val();
                     var year = $("#input_Year").val();
@@ -200,9 +200,9 @@
                 var id = tmp[1];
                 if(action == "edit"){
                     updateInput();
-                    $("#spanAction").html("Update");
-                    $("#btnAction").removeClass("btn-success");
-                    $("#btnAction").addClass("btn-primary");
+                    $("#spanActionEdu").html("Update");
+                    $("#btnActionEdu").removeClass("btn-success");
+                    $("#btnActionEdu").addClass("btn-primary");
                     // Set value to Update
                     $("#idEdu").html(id);
                     var major = $("#major-"+ id).html(); $("#input_Major").val(major);

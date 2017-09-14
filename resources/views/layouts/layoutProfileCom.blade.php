@@ -59,20 +59,18 @@
                         <hr>
                         <ul class="list-group" style="padding:0;">
                             <li class="list-group-item w3-button w3-block w3-left-align">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="list-group-item w3-button w3-block w3-left-align">
                                 <a href="{{ route('home.profile') }}" class="w3-button w3-left-align">
                                     <i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Home
                                 </a>
                             </li>
+                            
                             <li class="list-group-item w3-button w3-block w3-left-align">
-                                <a href="{{ route('profile.postjob') }}" class="w3-button w3-left-align">
+                                <a href="{{ route('home.application') }}" class="w3-button w3-left-align">
+                                    <i class="fa fa-envelope-o fa-fw w3-margin-right w3-text-theme"></i> Applications
+                                </a>
+                            </li>
+                            <li class="list-group-item w3-button w3-block w3-left-align">
+                                <a href="{{ route('home.profile') }}" class="w3-button w3-left-align">
                                     <i class="fa fa-briefcase fa-fw w3-margin-right w3-text-theme"></i> Job posting
                                 </a>
                             </li>                    
@@ -94,13 +92,14 @@
             var showChar = 250;
             var ellipsestext = "...";
             var moretext = "more";
-            var lesstext = "less";
-            $('.description').each(function() {
+
+            $('.cv_description').each(function() {
                 var content = $(this).html();
+                    
                 if(content.length > showChar) {
                     var c = content.substr(0, showChar);
                     var h = content.substr(showChar-1, content.length - showChar);
-                    var html = c + '<span class="moreelipses">'+ellipsestext+'</span>&nbsp;<span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">'+moretext+'</a></span>';
+                    var html = c + '<span class="moreelipses">'+ ellipsestext +'</span>&nbsp;<span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">'+moretext+'</a></span>';
                     $(this).html(html);
                 }
             });
@@ -108,7 +107,7 @@
             $(".morelink").click(function(){
                 $(this).parent().prev().toggle();
                 $(this).prev().toggle();
-                $(this).remove();
+                //$(this).remove();
                 return false;
             });
         });
