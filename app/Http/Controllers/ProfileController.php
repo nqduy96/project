@@ -20,11 +20,11 @@ class ProfileController extends Controller
                 $information = DB::table('information')->where('iduser',$idUser)->first();
 
                 if($role == "user")
-                    return View('profileUser',[ 'idUser' => $idUser , 'information' => $information ]);
+                    return View('User.profile',[ 'idUser' => $idUser , 'information' => $information ]);
                 
                 $company = DB::table('companies')->where('id_user' , $idUser)->first();
                 $jobs = DB::table('jobs')->where('id_user', $company->id_user)->get();
-                return View('profileCom',[ 'idUser' => $idUser, 'company' => $company ,'jobs' =>$jobs]);
+                return View('Company.profile',[ 'idUser' => $idUser, 'company' => $company ,'jobs' =>$jobs]);
             }
         }
         return redirect('/');
@@ -82,8 +82,11 @@ class ProfileController extends Controller
             $json = JWT::decode($token, "ANH_DUY_OK",true);
             $idUser = $json->idUser;
             $company = DB::table('companies')->where('id_user', $idUser)->first();
+            
+            $PLS = DB::table('p_ls')->get();
+            $locations = \App\locations::all();
 
-            return view('postJob',[ 'company' => $company ]);
+            return view('Company.postJob',[ 'company' => $company ,'PLS' => $PLS, 'locations' => $locations]);
         }
         return redirect('/');
     }
@@ -95,13 +98,20 @@ class ProfileController extends Controller
             $idUser = $json->idUser;
             
             $title = $req->input('title');
+            $tag = $req->input('tag');
             $location = $req->input('location');
             $type = $req->input('type');
             $description = $req->input('description');
             $howToApply = $req->input('howToApply');
 
             $query = DB::table('jobs')->insert([
-                'id_user' => $idUser , 'title' => $title, 'location' => $location, 'type' => $type, 'description' => $description, 'how_to_apply' =>$howToApply
+                'id_user' => $idUser ,
+                'tag' => $tag,
+                'title' => $title,
+                'location' => $location,
+                'type' => $type,
+                'description' => $description,
+                'how_to_apply' =>$howToApply
             ]);
 
             return response()->json([

@@ -24,18 +24,54 @@ Route::get('user',function() {
 Route::get('user\{$id}',function($id) {
     return App\user::find($id);
 });
-Route::post('user',function(Request $request) {
-    error_log($request);
-    return App\user::create($request->all);
-});
-Route::put('user/{id}', function(Request $request,$id) {
+Route::post('user','AjaxController@loginMobile');
+
+Route::put('user\{id}', function(Request $request,$id) {
     $user = App\user::findOrFail($id);
     $user->update($request->all());
     return $user;
 });
-Route::delete('user/{id}',function($id) {
+Route::delete('user\{id}',function($id) {
     App\user::find($id)->delete();
     return 204;
 });
 
+/*
+|--------------------------------------------------------------------------
+| API Jobs
+|--------------------------------------------------------------------------
+*/
 
+Route::get('job',function() {
+    $job = DB::table('jobs')->join('companies','jobs.id_user', '=' , 'companies.id_user')
+        ->select('jobs.*','companies.*')->get();
+return $job;
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Location
+|--------------------------------------------------------------------------
+*/
+
+Route::get('location',function() {
+    return App\locations::all();
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Language
+|--------------------------------------------------------------------------
+*/
+
+Route::get('language',function() {
+    return DB::table('p_ls')->get();
+});
+
+/*
+|--------------------------------------------------------------------------
+| API Token
+|--------------------------------------------------------------------------
+*/
+
+Route::post('token','TokensController@checkLoginMobile');

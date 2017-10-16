@@ -18,7 +18,17 @@
             });
             
             $(document).ready(function(){
+                $("#idAcount").keyup(function(event){
+                    if(event.keyCode == 13){
+                        $("#submit").click();
+                    }
+                });
 
+                $("#password").keyup(function(event){
+                    if(event.keyCode == 13){
+                        $("#submit").click();
+                    }
+                });
                 $('#submit').click(function(){
                     var id = $('#idAcount').val();
                     var pass = $('#password').val();

@@ -20,7 +20,7 @@ class ExperiencesController extends Controller
                 $experiences = DB::table('experiences')->where('idUser',$idUser)->get();
                 $information = DB::table('information')->where('iduser',$idUser)->first();
 
-                return View('experienceuser',[ 'idUser' => $idUser,
+                return View('User.experience',[ 'idUser' => $idUser,
                                         'experiences' => $experiences,
                                         'information' => $information]);
             }

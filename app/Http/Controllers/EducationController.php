@@ -19,7 +19,7 @@ class EducationController extends Controller
                 $education = DB::table('education')->where('idUser',$idUser)->get();
                 $information = DB::table('information')->where('iduser',$idUser)->first();
 
-                return View('educationuser',[ 'idUser' => $idUser,
+                return View('User.education',[ 'idUser' => $idUser,
                                         'educations' => $education,
                                         'information' => $information]);
             }

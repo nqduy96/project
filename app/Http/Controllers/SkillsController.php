@@ -19,7 +19,7 @@ class SkillsController extends Controller
                 $education = DB::table('skills')->where('idUser',$idUser)->get();
                 $information = DB::table('information')->where('iduser',$idUser)->first();
 
-                return View('skilluser',[ 'idUser' => $idUser,
+                return View('User.skill',[ 'idUser' => $idUser,
                                         'skills' => $education,
                                         'information' => $information]);
             }

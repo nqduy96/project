@@ -36,6 +36,19 @@ Route::get('/userPic/{filename}', function ($filename)
     return $response;
 })->name('avatar');
 
+Route::get('/templatePic/{filename}', function ($filename)
+{
+    $path = storage_path() . '/templatePic/' . $filename;
+    if(!File::exists($path)) abort(404);
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('template');
+
 Route::get('/home','HomeController@show')->name('home');
 
 Route::get('/home/logout','HomeController@logout')->name('home.logout');
@@ -64,7 +77,13 @@ Route::post('/home/profile/skill/edit','SkillsController@edit');
 Route::get('/home/profile/password','UserController@password')->name('profile.password');
 Route::post('/home/profile/password/edit', 'UserController@editPass' )->name('pass.edit');
 
+Route::get('home/profile/job','JobsController@showSaved')->name('profile.job');
+
+// CV
+
 Route::get('/home/cv/{idUser}','CVController@show')->name('home.cv');
+Route::get('/home/profile/template','CVController@showTemplate')->name('profile.template');
+Route::get('/home/profile/template/demo/{iduser}/{nametemplate}','CVController@demoTemplate')->name('template.demo');
 
 //  Company
 
@@ -72,13 +91,22 @@ Route::get('/home/profile/postjob','ProfileController@showPostJob')->name('profi
 Route::post('/home/profile/postjob/post','ProfileController@postJob')->name('postjob.post');
 
 // Xem bai viet
-
 Route::get('/home/jobs/{idJob}','JobsController@show')->name('home.job');
 
 
 // Apply job
-
 Route::post('/home/jobs/apply','JobsController@apply')->name('jobs.apply');
 
+// Save, Unsave job
+Route::post('home/jobs/save','JobsController@save')->name('jobs.save');
+Route::post('home/jobs/unsave','JobsController@unsave')->name('jobs.unsave');
+
 // View Applications (company)
-Route::get('/home/application','ApplicationController@show')->name('home.application');
+Route::get('/home/application','ApplicationController@showApplication')->name('home.application');
+Route::get('/home/selected/application','ApplicationController@showSelectedApplication')->name('home.selectedApplication');
+Route::post('/home/application/execute','ApplicationController@execute')->name('application.execute');
+
+// View Admin
+Route::get('/home/admin/user','AdminController@showUser')->name('admin.user');
+Route::get('/home/admin/company','AdminController@showCompany')->name('admin.company');
+Route::post('/home/admin/company','UserController@createCompany')->name('company.create');

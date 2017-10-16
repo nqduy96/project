@@ -19,7 +19,9 @@ class UserController extends Controller
             ]);
 
             $queryInfo = DB::table('information')->insert([
-                ['iduser' => $id, 'firstname' => "", 'lastname' => "",'introduce' => "", 'phone' => "", 'mail' => "", 'skype' => "", 'birthday' => "", 'address' => "", 'picture' => "default"]
+                ['iduser' => $id, 'firstname' => "", 'lastname' => "",'introduce' => "",
+                'phone' => "", 'mail' => "", 'skype' => "", 'birthday' => "",
+                'address' => "", 'picture' => "default", 'name_cv' => "default"]
             ]);
 
             return response()->json([ 'error' => false,
@@ -58,7 +60,44 @@ class UserController extends Controller
         $json = JWT::decode($token, "ANH_DUY_OK",true);
         $idUser = $json->idUser;
         $information = DB::table('information')->where('iduser',$idUser)->first();
+        if($json->role == "user")
+            return view('User.changePass',['idUser' => $idUser, 'information' => $information ]);
         
-        return view('changePass',['idUser' => $idUser, 'information' => $information ]);
+        $company = DB::table('companies')->where('id_user',$idUser)->first();
+        return view('Company.changePass',['idUser' => $idUser, 'information' => $information ,'company' =>$company]);
+        
     }
+
+    public function createCompany(Request $req){
+        $userName = $req->input('userName');
+        $name = $req->input('name');
+        $url = $req->input('url');
+        $logo = $req->input('logo');
+
+        $checkUsername = DB::table('users')->where('iduser',$userName)->first();
+        
+        if(count($checkUsername) == 0){
+            
+            $newUser = DB::table('users')->insert([
+                ['iduser' => $userName,'password' => "company",'role' => "com"]
+            ]);
+
+            $newCompany = DB::table('companies')->insert([
+                ['id_user' => $userName,'name' => $name,'company_url' => $url,'company_logo' => $logo]
+            ]);
+
+            $json = [
+                'success' => true,
+                'hasdata' => false,
+            ];
+            return response()->json($json,200);
+        }
+
+        $json = [
+            'success' => false,
+            'exception' => "Username already exists",    
+        ];
+        return response()->json($json,200);
+    }
+
 }

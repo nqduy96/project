@@ -16,7 +16,7 @@ class CreateUngtuyensTable extends Migration
         Schema::create('ungtuyens', function (Blueprint $table) {
             $table->string('iduser');
             $table->integer('idjob');
-            $table->boolean('trangthai');
+            $table->string('trangthai');
             $table->timestamps();
         });
     }

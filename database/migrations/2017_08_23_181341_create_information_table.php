@@ -25,6 +25,7 @@ class CreateInformationTable extends Migration
             $table->string('birthday');
             $table->string('address');
             $table->string('picture');
+            $table->string('name_cv');
             $table->timestamps();
         });
     }
